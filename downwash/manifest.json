@@ -1,0 +1,23 @@
+{
+  "manifest_version": "0.3",
+  "name": "downwash",
+  "display_name": "DownWash",
+  "version": "1.0.0",
+  "description": "Analyze DJI flight logs and export telemetry with the DownWash processor.",
+  "long_description": "Includes the shared open-source DownWash telemetry engine for macOS, Linux, and Windows on x64 and ARM64. Analyze local DJI flight logs and recordings, page through telemetry, scan folders, export reports, batch process files, and convert video. FFmpeg must be installed separately for video conversion. Files remain local when using this desktop extension. This is the open-source processor; native app purchases, licensing, and OS permissions remain in the native app.",
+  "author": {"name": "SIA CrowFoundry", "url": "https://crowfoundry.com"},
+  "repository": {"type": "git", "url": "https://github.com/askrejans/downwash.git"},
+  "homepage": "https://crowfoundry.com/downwash",
+  "documentation": "https://crowfoundry.com/apps/mcp",
+  "support": "https://crowfoundry.com/downwash/support",
+  "privacy_policies": ["https://crowfoundry.com/downwash/privacy"],
+  "license": "GPL-3.0",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {"command": "node", "args": ["${__dirname}/server/index.js"]}
+  },
+  "tools_generated": true,
+  "keywords": ["DJI", "drone", "telemetry", "flight logs", "reports", "video"],
+  "compatibility": {"platforms": ["darwin", "linux", "win32"], "runtimes": {"node": ">=18.0.0"}}
+}

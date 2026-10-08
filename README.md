@@ -6,7 +6,7 @@ and credentials are not part of this distribution.
 
 The authoritative catalog is the [official MCP Registry](https://registry.modelcontextprotocol.io).
 The `registry/` directory contains publisher-validated `server.json` metadata.
-Remote servers authenticate each user and enforce the same ownership, free
+Account-based remote servers authenticate each user and enforce the same ownership, free
 allowances, and paid entitlements as the product API. Desktop extensions
 connect to the installed app; they do not upload local media or grant themselves
 permission to process it.
@@ -56,3 +56,16 @@ mcp-publisher validate registry/hometape.server.json
 `publish-discovery.py` belongs to the private infrastructure checkout and is
 not part of the public extension archive. It validates nginx and records
 rollback evidence before publishing scoped website discovery metadata.
+
+## Connection URLs
+
+| Product | Transport | Connection |
+| --- | --- | --- |
+| Recolor the Past | Authenticated Streamable HTTP | https://api.recolorthepast.com/mcp |
+| Neptivum | Authenticated Streamable HTTP | https://api.neptivum.com/mcp |
+| DownWash | Public upload-only Streamable HTTP | https://crowfoundry.com/downwash/mcp |
+| HomeTape | Local macOS stdio extension | Install the macOS HomeTape app and its `.mcpb` bundle |
+
+## DownWash
+
+The released `downwash-1.0.0.mcpb` includes the open-source processor for six OS/architecture targets. Local tools include analysis, folder scan, reports, batch processing, and video conversion (requires FFmpeg). The hosted endpoint offers uploaded-file analysis and reports. [AI/MCP documentation](https://crowfoundry.com/downwash/ai) explains scopes, privacy, and native app licensing. The [corresponding GPL source](https://github.com/askrejans/downwash/tree/224688d) is public.

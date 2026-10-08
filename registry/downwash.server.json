@@ -1,0 +1,24 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.crowfoundry/downwash",
+  "title": "DownWash",
+  "description": "Analyze DJI flight logs and export telemetry using the shared open-source DownWash engine.",
+  "version": "1.0.0",
+  "websiteUrl": "https://crowfoundry.com/apps/mcp",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://crowfoundry.com/downwash/mcp"
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/crowfoundry/app-connectors/releases/download/v1.0.0/downwash-1.0.0.mcpb",
+      "fileSha256": "eb3a7ebf94e009b202f53c2948ecc7e7070ff2166b5131d4f56043d7c5cbebee",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
