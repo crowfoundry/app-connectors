@@ -61,6 +61,7 @@ rollback evidence before publishing scoped website discovery metadata.
 
 | Product | Transport | Connection |
 | --- | --- | --- |
+| G86 Racing | Authenticated Streamable HTTP | https://api.g86racing.com/mcp |
 | Recolor the Past | Authenticated Streamable HTTP | https://api.recolorthepast.com/mcp |
 | Neptivum | Authenticated Streamable HTTP | https://api.neptivum.com/mcp |
 | DownWash | Public upload-only Streamable HTTP | https://crowfoundry.com/downwash/mcp |
@@ -69,3 +70,15 @@ rollback evidence before publishing scoped website discovery metadata.
 ## DownWash
 
 The released `downwash-1.0.0.mcpb` includes the open-source processor for six OS/architecture targets. Local tools include analysis, folder scan, reports, batch processing, and video conversion (requires FFmpeg). The hosted endpoint offers uploaded-file analysis and reports. [AI/MCP documentation](https://crowfoundry.com/downwash/ai) explains scopes, privacy, and native app licensing. The [corresponding GPL source](https://github.com/askrejans/downwash/tree/224688d) is public.
+
+## Product guides and authentication
+
+- [G86 Racing AI/MCP guide](https://g86racing.com/ai) — cloud sessions, telemetry, tracks, vehicles, drivers, teams and Pit Wall operations.
+- [Neptivum AI/MCP guide](https://neptivum.com/ai) — synced boating records and account workflows.
+- [Recolor the Past AI/MCP guide](https://recolorthepast.com/en/ai) — photo restoration, library management and existing checkout workflows.
+- [HomeTape AI/MCP guide](https://crowfoundry.com/hometape/ai) — installed app and local media operations.
+- [DownWash AI/MCP guide](https://crowfoundry.com/downwash/ai) — public upload analysis and the local open-source processor.
+
+The three account servers require OAuth browser authorization or a scoped API key. In a tester with an **Auth Header** field, use `Bearer <your token or scoped API key>`; a connection without credentials reports an authentication error. DownWash's hosted endpoint accepts explicitly uploaded files without an account. HomeTape runs locally through its installed macOS app.
+
+All five entries are active in the official registry under `com.crowfoundry`. The [company discovery index](https://crowfoundry.com/.well-known/mcp.json) links the individual records, transports, and guides. Each product publishes readable AI documentation and machine descriptors; live tool schemas remain authoritative for capabilities. Native mobile bridge changes require a new installed app release.

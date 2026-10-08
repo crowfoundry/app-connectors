@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.crowfoundry/g86-racing",
+  "title": "G86 Racing",
+  "description": "Manage racing sessions, telemetry, tracks, vehicles, teams, and licensed cloud features.",
+  "version": "1.0.0",
+  "websiteUrl": "https://g86racing.com/ai",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.g86racing.com/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer OAuth access token or scoped API key. Use the product browser sign-in flow to authorize access.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
