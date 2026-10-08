@@ -64,12 +64,24 @@ rollback evidence before publishing scoped website discovery metadata.
 | G86 Racing | Authenticated Streamable HTTP | https://api.g86racing.com/mcp |
 | Recolor the Past | Authenticated Streamable HTTP | https://api.recolorthepast.com/mcp |
 | Neptivum | Authenticated Streamable HTTP | https://api.neptivum.com/mcp |
-| DownWash | Public upload-only Streamable HTTP | https://crowfoundry.com/downwash/mcp |
+| DownWash | Local macOS app stdio extension | Install DownWash 1.0.1 build 11 or later and its `downwash-1.1.0.mcpb` bundle |
 | HomeTape | Local macOS stdio extension | Install the macOS HomeTape app and its `.mcpb` bundle |
 
 ## DownWash
 
-The released `downwash-1.0.0.mcpb` includes the open-source processor for six OS/architecture targets. Local tools include analysis, folder scan, reports, batch processing, and video conversion (requires FFmpeg). The hosted endpoint offers uploaded-file analysis and reports. [AI/MCP documentation](https://crowfoundry.com/downwash/ai) explains scopes, privacy, and native app licensing. The [corresponding GPL source](https://github.com/askrejans/downwash/tree/224688d) is public.
+The `downwash-1.1.0.mcpb` extension connects to the MCP helper bundled with the installed DownWash macOS app. The app enforces its existing free previews, limited telemetry, and verified Full Unlock licence for full processing. Analysis, exports, batch processing, video conversion, telemetry, and purchases use the app's own services. Processing requires app approval; purchases require fresh approval and the platform's payment confirmation. Source files stay on the device. The helper requires DownWash 1.0.1 build 11 or later; that app update has been submitted for store review.
+
+```json
+{
+  "mcpServers": {
+    "downwash": {
+      "command": "/Applications/Downwash.app/Contents/MacOS/downwash-mcp"
+    }
+  }
+}
+```
+
+See [DownWash's AI/MCP documentation](https://crowfoundry.com/downwash/ai) for tools, native mobile handoffs, permissions, and licensing. The former unauthenticated upload endpoint and processor bundle have been retired from this product connector. The separate [GPL engine source](https://github.com/askrejans/downwash) remains a developer library; it does not connect to the paid app or verify its purchases.
 
 ## Product guides and authentication
 
@@ -77,8 +89,8 @@ The released `downwash-1.0.0.mcpb` includes the open-source processor for six OS
 - [Neptivum AI/MCP guide](https://neptivum.com/ai) — synced boating records and account workflows.
 - [Recolor the Past AI/MCP guide](https://recolorthepast.com/en/ai) — photo restoration, library management and existing checkout workflows.
 - [HomeTape AI/MCP guide](https://crowfoundry.com/hometape/ai) — installed app and local media operations.
-- [DownWash AI/MCP guide](https://crowfoundry.com/downwash/ai) — public upload analysis and the local open-source processor.
+- [DownWash AI/MCP guide](https://crowfoundry.com/downwash/ai) — installed app, free previews, verified paid processing, and native purchases.
 
-The three account servers require OAuth browser authorization or a scoped API key. In a tester with an **Auth Header** field, use `Bearer <your token or scoped API key>`; a connection without credentials reports an authentication error. DownWash's hosted endpoint accepts explicitly uploaded files without an account. HomeTape runs locally through its installed macOS app.
+The three account servers require OAuth browser authorization or a scoped API key. In a tester with an **Auth Header** field, use `Bearer <your token or scoped API key>`; a connection without credentials reports an authentication error. DownWash and HomeTape run locally through their installed apps. The retired DownWash HTTP URL returns `410 Gone` with the native installation guide.
 
 All five entries are active in the official registry under `com.crowfoundry`. The [company discovery index](https://crowfoundry.com/.well-known/mcp.json) links the individual records, transports, and guides. Each product publishes readable AI documentation and machine descriptors; live tool schemas remain authoritative for capabilities. Native mobile bridge changes require a new installed app release.

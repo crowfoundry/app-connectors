@@ -1,25 +1,29 @@
 'use strict';
-const {spawn} = require('node:child_process');
-const {join} = require('node:path');
 
-const platforms = {darwin: 'darwin', linux: 'linux', win32: 'windows'};
-const architectures = {arm64: 'arm64', x64: 'amd64'};
-const platform = platforms[process.platform];
-const architecture = architectures[process.arch];
-if (!platform || !architecture) {
-  process.stderr.write('DownWash supports macOS, Linux, and Windows on x64 and ARM64.\n');
+// The installed application alone owns capabilities, file access, consent,
+// previews and paid entitlements. This connector never processes recordings.
+const {spawn} = require('node:child_process');
+const {accessSync, constants} = require('node:fs');
+const {isAbsolute, basename, dirname} = require('node:path');
+const command = process.env.DOWNWASH_MCP_PATH || '/Applications/Downwash.app/Contents/MacOS/downwash-mcp';
+function fail(message) {
+  process.stderr.write(`${message} See https://crowfoundry.com/downwash/ai\n`);
   process.exit(1);
 }
-const suffix = process.platform === 'win32' ? '.exe' : '';
-const executable = join(__dirname, 'bin', `downwash_${platform}_${architecture}${suffix}`);
-const child = spawn(executable, ['mcp'], {stdio: ['pipe', 'pipe', 'inherit'], shell: false});
+if (process.platform !== 'darwin') fail('This DownWash native connector currently supports macOS.');
+if (!isAbsolute(command) || basename(command) !== 'downwash-mcp' || basename(dirname(command)) !== 'MacOS' || basename(dirname(dirname(command))) !== 'Contents' || !dirname(dirname(dirname(command))).endsWith('.app')) {
+  fail('Choose the bundled downwash-mcp inside the installed DownWash.app.');
+}
+try { accessSync(command, constants.X_OK); }
+catch (_) { fail('Install the released DownWash update with native automation (1.0.1 build 11 or later), or set its app helper path in extension settings.'); }
+const child = spawn(command, [], {stdio: ['pipe', 'pipe', 'inherit'], shell: false});
 process.stdin.pipe(child.stdin);
 child.stdout.pipe(process.stdout);
 child.stdin.on('error', error => {
   if (error.code !== 'EPIPE') process.stderr.write(`DownWash transport: ${error.message}\n`);
 });
 child.on('error', error => {
-  process.stderr.write(`Could not start the bundled DownWash processor: ${error.message}\n`);
+  process.stderr.write(`Could not start DownWash app MCP helper: ${error.message}\n`);
   process.exitCode = 1;
 });
 child.on('exit', (code, signal) => {
