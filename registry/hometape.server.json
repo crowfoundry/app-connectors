@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.crowfoundry/hometape",
+  "title": "HomeTape",
+  "description": "Make, preview, and export home movies with the installed local HomeTape app.",
+  "version": "1.0.0",
+  "websiteUrl": "https://crowfoundry.com/hometape/ai",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/crowfoundry/app-connectors/releases/download/v1.0.0/hometape-1.0.0.mcpb",
+      "fileSha256": "b4f8765b6270c0ebcb3f709f6bf096d6a332b9545fa2ff2729e988252b30f84d",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

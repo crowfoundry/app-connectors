@@ -1,0 +1,34 @@
+{
+  "manifest_version": "0.3",
+  "name": "hometape",
+  "display_name": "HomeTape",
+  "version": "1.0.0",
+  "description": "Make and preview home movies through the installed HomeTape app.",
+  "long_description": "Connects Claude Desktop or another MCPB client to HomeTape's installed local MCP helper. The same app planner, media renderer, free allowance, and existing paid licence apply. Processing requires approval in the app; purchases require fresh approval. Media stays on the device. Requires the HomeTape macOS app with its bundled MCP helper. This extension does not provide cloud access to local videos.",
+  "author": {"name": "SIA CrowFoundry", "url": "https://crowfoundry.com"},
+  "homepage": "https://crowfoundry.com/hometape",
+  "documentation": "https://crowfoundry.com/hometape/ai",
+  "support": "https://crowfoundry.com/hometape/support",
+  "privacy_policies": ["https://crowfoundry.com/hometape/privacy"],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {"HOMETAPE_MCP_PATH": "${user_config.helper_path}"}
+    }
+  },
+  "tools_generated": true,
+  "keywords": ["video", "home movies", "editing", "local media"],
+  "compatibility": {"platforms": ["darwin"], "runtimes": {"node": ">=18.0.0"}},
+  "user_config": {
+    "helper_path": {
+      "type": "string",
+      "title": "HomeTape MCP helper",
+      "description": "Absolute path to the MCP helper bundled with the installed HomeTape app.",
+      "default": "/Applications/Hometape.app/Contents/MacOS/hometape-mcp",
+      "required": true
+    }
+  }
+}
