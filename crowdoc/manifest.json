@@ -1,0 +1,48 @@
+{
+  "manifest_version": "0.3",
+  "name": "crowdoc",
+  "display_name": "Crowdoc",
+  "version": "1.0.0",
+  "description": "Typeset documents into PDFs with the installed Crowdoc app.",
+  "long_description": "Connects Claude Desktop or another MCPB client to the MCP helper bundled with the installed Crowdoc app for macOS or Windows. Crowdoc typesets Markdown, Word, OpenDocument, RTF, HTML, EPUB, notebooks, spreadsheets, text and PDF files into PDFs in the user's library on the device. Turn on Settings → AI assistants in Crowdoc first; the app asks the user to allow each assistant session. Each new PDF uses one of the app's free documents until Crowdoc is unlocked. The purchase tool only shows the unlock offer in the app: the user decides and pays there, and the assistant never sees payment data. No hosted service is involved and documents stay on the device.",
+  "author": {"name": "SIA CrowFoundry", "url": "https://crowfoundry.com"},
+  "homepage": "https://crowfoundry.com/crowdoc",
+  "documentation": "https://crowfoundry.com/crowdoc/ai",
+  "support": "https://crowfoundry.com/crowdoc/support",
+  "privacy_policies": ["https://crowfoundry.com/crowdoc/privacy"],
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {"CROWDOC_MCP_PATH": "${user_config.helper_path}"}
+    }
+  },
+  "tools": [
+    {"name": "crowdoc_capabilities", "description": "Styles, colour schemes, typefaces, citation styles, languages, the user's defaults and the free-document entitlement."},
+    {"name": "crowdoc_inspect", "description": "Read a document's title, outline, counts, warnings and style suggestions without typesetting it. Free."},
+    {"name": "crowdoc_convert", "description": "Typeset a document as a PDF in the user's Crowdoc library. Uses one free document unless Crowdoc is unlocked."},
+    {"name": "crowdoc_batch", "description": "Typeset up to 200 documents with shared settings, optionally zipped. Each new PDF uses one free document unless unlocked."},
+    {"name": "crowdoc_preview", "description": "Render page 1 of a document in a style as a PNG image without creating a PDF. Free."},
+    {"name": "crowdoc_scan", "description": "Find documents Crowdoc can typeset in a local folder."},
+    {"name": "crowdoc_list_documents", "description": "List the PDFs in the user's Crowdoc library, newest first."},
+    {"name": "crowdoc_get_document", "description": "Details of one library document, optionally with the PDF or the text of a scan."},
+    {"name": "crowdoc_request_purchase", "description": "Offer the Crowdoc unlock to the user in the app. Only the user can accept and pay there; the tool charges nothing."},
+    {"name": "crowdoc_render_typst", "description": "Return the generated Typst project of a document for review, without compiling it. Free."},
+    {"name": "crowdoc_format_references", "description": "Format BibTeX, CSL-JSON/YAML, RIS or PubMed entries in a citation style. Free."}
+  ],
+  "prompts_generated": true,
+  "keywords": ["documents", "typesetting", "PDF", "Markdown", "local app"],
+  "compatibility": {"platforms": ["darwin", "win32"], "runtimes": {"node": ">=18.0.0"}},
+  "user_config": {
+    "helper_path": {
+      "type": "string",
+      "title": "Crowdoc MCP helper",
+      "description": "Leave empty for the installed app: /Applications/Crowdoc.app/Contents/MacOS/crowdoc-mcp on macOS, %LOCALAPPDATA%\\Microsoft\\WindowsApps\\crowdoc-mcp.exe on Windows. Crowdoc shows its exact path in Settings → AI assistants.",
+      "default": "",
+      "required": false
+    }
+  }
+}
